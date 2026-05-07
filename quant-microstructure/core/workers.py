@@ -12,11 +12,19 @@ from typing import Dict, Optional, Any, Callable
 import logging
 from dataclasses import dataclass
 
-from .ingestion import BinanceIngestion, AggregatedWindow, OrderBook
-from .features import FeatureEngine, FeatureSet
-from .model import MicrostructureModel, SignalPrediction
-from .theta_optimizer import ThetaOptimizer, ThetaResult
-from .risk_sim import RiskSimulator, PositionSide
+# Use absolute imports for direct script execution
+try:
+    from .ingestion import BinanceIngestion, AggregatedWindow, OrderBook
+    from .features import FeatureEngine, FeatureSet
+    from .model import MicrostructureModel, SignalPrediction
+    from .theta_optimizer import ThetaOptimizer, ThetaResult
+    from .risk_sim import RiskSimulator, PositionSide
+except ImportError:
+    from ingestion import BinanceIngestion, AggregatedWindow, OrderBook
+    from features import FeatureEngine, FeatureSet
+    from model import MicrostructureModel, SignalPrediction
+    from theta_optimizer import ThetaOptimizer, ThetaResult
+    from risk_sim import RiskSimulator, PositionSide
 
 logger = logging.getLogger(__name__)
 
