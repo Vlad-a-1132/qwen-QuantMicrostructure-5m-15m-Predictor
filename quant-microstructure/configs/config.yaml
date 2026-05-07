@@ -1,0 +1,48 @@
+# Глобальные
+app:
+  name: "QuantMicrostructure"
+  version: "1.0.0"
+  log_level: "INFO"
+
+# Binance
+exchange:
+  ws_url: "wss://fstream.binance.com/ws"
+  symbol: "BTCUSDT"
+  max_l2_levels: 20
+  max_depth_mb: 512
+
+# Таймфреймы
+timeframes:
+  "5m":
+    delta_minutes: 5
+    embargo_minutes: 7
+    theta_window_hours: 48
+    min_K_ratio: 2.6
+    slippage_bps: 0.3
+    rolling_recal_minutes: 60
+  "15m":
+    delta_minutes: 15
+    embargo_minutes: 20
+    theta_window_hours: 72
+    min_K_ratio: 2.3
+    slippage_bps: 0.2
+    rolling_recal_minutes: 120
+
+# ML & Inference
+ml:
+  model_path: "models/lightgbm_calibrated.onnx"
+  feature_cols: ["OFI", "microprice_drift", "liquidity_vacuum", "VPIN", "dOFI_dt", "dμ_dt"]
+  inference_hz: 1  # раз в секунду
+
+# Risk
+risk:
+  max_exposure_pct: 2.0
+  position_sizing: "kelly_fraction"
+  max_drawdown_stop: -5.0
+
+# IPC
+ipc:
+  protocol: "zmq"
+  addr_core: "tcp://127.0.0.1:5555"
+  addr_ui:   "tcp://127.0.0.1:5556"
+  format: "msgpack"
